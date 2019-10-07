@@ -3,6 +3,9 @@ import foods from './foods.json'
 import './App.css';
 
 export default class FoodBox extends Component {
+  state = {
+    quantity: 0,
+  }
 
       foodBox = () =>{
         let content = this.props.foodinfo.map((eachFood, i)=>{
@@ -26,16 +29,14 @@ export default class FoodBox extends Component {
           <div className="field has-addons">
             <div className="control">
               <input
-                onChange={this.qty}
+                onChange={(e)=>{this.setState({quantity: e.target.value})}}
                 className="input"
                 type="number" 
-                value={eachFood.quantity}
               />
             </div>
             <div className="control">
-              <button className="button is-info">
-                +
-              </button>
+            <button onClick={()=>this.props.addButton([this.props.name,this.props.cal])} className="button is-info">+</button>
+
             </div>
           </div>
         </div>
@@ -45,8 +46,6 @@ export default class FoodBox extends Component {
         })
       return content
       }
-
-
 
 
 

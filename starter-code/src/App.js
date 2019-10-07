@@ -16,8 +16,20 @@ state = {
   name: '',
   image: '',
   calories: '',
+  listOfFoods: []
 }
 
+// showFoodBoxes = () =>{
+//   return this.state.
+// }
+
+addToList = (food) =>{
+  let copyOfListOfFoods = {...this.state.listOfFoods}
+  copyOfListOfFoods[ food.name ]
+  this.setState{
+    listOfFoods: copyOfListOfFoods
+  }
+}
 
 
 handleChange = (e) => {
@@ -34,7 +46,7 @@ let image = this.state.image
 let calories = this.state.calories
 let newFood = {name: name, image: image, calories: calories}
 let newState = [...this.state.food]
-newState.push(newFood)
+newState.unshift(newFood)
 this.setState({
   food: newState,
   
@@ -59,6 +71,13 @@ search = () => {
   });
  }
 
+addButton = (a) =>{
+
+  document.querySelector('#hello').innerHTML += `
+  food: ${a[0]}
+  `
+
+}
 
 
   render(){
@@ -77,21 +96,31 @@ search = () => {
 
       {/* Adding food objects */}
       <button onClick={this.showAddFood}>Add Food</button>
-      {this.state.showForm && <AddFood saf={this.state.showForm} hc={this.handleChange} mF={this.makeFood} sP={this.state.food}/>}
-<br></br>
-        {/* Content */}
+      {this.state.showForm && 
+      <AddFood saf={this.state.showForm} hc={this.handleChange} 
+      mF={this.makeFood} sP={this.state.food}/>}
+
+      <br></br>
+
+      {/* Content */}
         <div className="work">
-        <FoodBox foodinfo={this.state.food}/>
+        <FoodBox addButton={this.addButton} foodinfo={this.state.food}/>
+
+      {/* adding food to content */}
         <article className="todayFood">
-        {/* adding food  */}
           <h1>Today's Foods</h1>
-             {}
+          <ul>
+           <React.Fragment id="hello">
+
+           </React.Fragment>
+          </ul>
+             
                </article>
                </div>
       </div>
       
     );
-      }
-    }
+  }
+}
 
 export default App;
